@@ -26,19 +26,39 @@
       <?php
         include 'navigation.php';
       ?>
-      <div class="container">
-        <h1 class="text-center">Annuaire</h1>
-        <center><a href="#"><button type="button" class="btn btn-success">Ajouter un contact</button></a></center>
-        <?php
-            while($row = $getAllContacts -> fetch(PDO::FETCH_ASSOC)){
-                echo '<div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">' . $row['prenom'] . ' ' . $row['nom'] . '</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">' . $row['societe'] . '</h6>
-                            <a href="contact.php?id=' . $row['id'] . '" class="card-link">Accéder à la fiche</a>
-                        </div>
-                    </div>';
-            }
-        ?>
+        <div class="container">
+            <h1 class="text-center">Annuaire</h1>
+            <center><a href="add_contact.php"><button type="button" class="btn btn-success">Ajouter un contact</button></a></center>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchBox" placeholder="Rechercher...">
+                </div>
+            </div>
+            <div id="contacts-list">
+                <?php
+                    while($row = $getAllContacts -> fetch(PDO::FETCH_ASSOC)){
+                        echo '<div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">' . $row['prenom'] . ' ' . $row['nom'] . '</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">' . $row['societe'] . '</h6>
+                                    <a href="contact.php?id=' . $row['id'] . '" class="card-link">Accéder à la fiche</a>
+                                </div>
+                            </div>';
+                    }
+                ?>
+            </div>
+        </div>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#searchBox").keyup(function(){
+                    value = $(this).val();
+                    $.post("searchcontact.php",{value:value},function(data){
+                        $("#contacts-list").html(data);
+                    });
+                    console.log(value);
+                });
+            });
+        </script>
     </body>
 </html>
