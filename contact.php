@@ -18,39 +18,32 @@
         <?php
           include_once "bdd.php";
 
-          $getAllCategories = $pdo -> prepare("SELECT * FROM category");
-          $getAllCategories -> execute();
+          $getContact = $pdo -> prepare("SELECT * FROM annuaire WHERE id = :id");
+          $getContact -> execute(array("id" => $_GET['id']));
 
-          $getAllSubCategories = $pdo -> prepare("SELECT * FROM subcategory");
-          $getAllSubCategories -> execute();
+          $row = $getContact -> fetch(PDO::FETCH_ASSOC)
         ?>
     </head>
     <body>
-      <?php
-        include '../navigation.php'
-      ?>
-      <div class="container">
-        <h1 class="text-center">Gérer les catégories</h1>
-        <center><button class="btn btn-success" id="addQuestionButton">Ajouter une catégorie</button></center>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Titre</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-              while($row = $getAllCategories -> fetch(PDO::FETCH_ASSOC)){
-                echo '<tr>';
-                  echo '<td>' . $row['title'] . '</td>';
-                  echo '<td><a href="edit_category.php?id=' . $row['title'] . '"><img src="img/edit.png"></a>&nbsp;&nbsp;&nbsp;<a href="delete_cateogry.php?id=' . $row['title'] . '"><img src="img/close.png"></a></td>';
-                echo '</tr>';
-              }
-            ?>
-          </tbody>
-        </table>
-      </div>
-      
+        <?php
+            include 'navigation.php';
+            $test = str_replace('\r\n','<br>',$row['description']);
+        ?>
+
+        <div class="container">
+            <center><img src="img/book.png" id="book"></center>
+            <?php echo '<h1>' . $row['prenom'] . ' ' . $row['nom'] . '</h1>'; ?>
+            <?php echo '<h4>' . $row['societe'] . '</h4>'; ?>
+
+            <?php echo '<center><a href="modify_contact.php?id=' . $row['id'] . '"><button type="button" class="btn btn-info">Modifier la fiche contact</button></a></center>'; ?>
+            <br><br><br>
+            <center>
+                <img src="img/phone.png">
+                <?php echo 'Numéro de téléphone: <br><b>' . $row['num_tel'] . '</b>'; ?>
+                <br><br>
+                <img src="img/profile.png">
+                <?php echo 'Description: <br><b>' . $test . '</b>'; ?>
+            </center>
+        </div>
     </body>
 </html>

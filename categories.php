@@ -18,40 +18,55 @@
         <?php
           include_once "bdd.php";
 
-          $getAllPosts = $pdo -> prepare("SELECT * FROM post");
-          $getAllPosts -> execute();
+          $getAllCategories = $pdo -> prepare("SELECT * FROM category");
+          $getAllCategories -> execute();
+
+          $getAllSubCategories = $pdo -> prepare("SELECT * FROM sub_category");
+          $getAllSubCategories -> execute();
         ?>
     </head>
     <body>
       <?php
-        include '../navigation.php';
+        include 'navigation.php'
       ?>
       <div class="container">
-        <h1 class="text-center">Gérer les questions</h1>
-        <center><button class="btn btn-success" id="addQuestionButton">Ajouter une question</button></center>
+        <h1 class="text-center">Gérer les catégories</h1>
+        <center><a href="add_cat.php"><button class="btn btn-success" id="addQuestionButton">Ajouter une catégorie</button></a></center>
         <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Titre</th>
-              <th scope="col">Lien</th>
-              <th scope="col">Type</th>
-              <th scope="col">Catégorie</th>
-              <th scope="col">Sous-catégorie</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <?php
-              while($row = $getAllPosts -> fetch(PDO::FETCH_ASSOC)){
+              while($row = $getAllCategories -> fetch(PDO::FETCH_ASSOC)){
                 echo '<tr>';
-                  echo '<td>' . $row['id'] . '</td>';
                   echo '<td>' . $row['title'] . '</td>';
-                  echo '<td>' . $row['link'] . '</td>';
-                  echo '<td>' . $row['type'] . '</td>';
+                  echo '<td><a href="edit_category.php?id=' . $row['title'] . '"><img src="img/edit.png"></a>&nbsp;&nbsp;&nbsp;<a href="delete_cat.php?title=' . $row['title'] . '"><img src="img/close.png"></a></td>';
+                echo '</tr>';
+              }
+            ?>
+          </tbody>
+        </table>
+        <h1 class="text-center">Gérer les sous-catégories</h1>
+        <center><a href="add_subcat.php"><button class="btn btn-success" id="addQuestionButton">Ajouter une sous-catégorie</button></a></center>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Titre</th>
+              <th scope="col">Catégorie parent</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              while($row = $getAllSubCategories -> fetch(PDO::FETCH_ASSOC)){
+                echo '<tr>';
+                  echo '<td>' . $row['title'] . '</td>';
                   echo '<td>' . $row['category'] . '</td>';
-                  echo '<td>' . $row['sub_category'] . '</td>';
-                  echo '<td><a href="edit.php?id=' . $row['id'] . '"><img src="img/edit.png"></a>&nbsp;&nbsp;&nbsp;<a href="delete.php?id=' . $row['id'] . '"><img src="img/close.png"></a></td>';
+                  echo '<td><a href="edit_category.php?id=' . $row['title'] . '"><img src="img/edit.png"></a>&nbsp;&nbsp;&nbsp;<a href="delete_subcat.php?title=' . $row['title'] . '"><img src="img/close.png"></a></td>';
                 echo '</tr>';
               }
             ?>

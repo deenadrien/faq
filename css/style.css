@@ -9,3 +9,33 @@ h1{
 #addQuestionButton{
     margin-bottom: 1%;
 }
+
+#linkGroup{
+    display:none;
+}
+
+#fileGroup{
+    display:none;
+}
+
+.form-check{
+    margin-bottom: 1%;
+}
+
+.card{
+    display:inline-block;
+    margin: 1%;
+}
+
+h1{
+    text-align: center;
+}
+
+h4{
+    text-align:center;
+    color: grey;
+}
+
+#book{
+    margin-top: 1%;
+}
