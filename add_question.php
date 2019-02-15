@@ -89,12 +89,16 @@
 
                     var pdf = "PDF";
                     var video = "Vidéo";
+                    var url = "URL";
 
                     id = $(this).val();
                     if(id === pdf){
                         $("#linkGroup").css('display','none');
                         $("#fileGroup").css('display','block');
                     }else if(id === video){
+                        $("#linkGroup").css('display','block');
+                        $("#fileGroup").css('display','none');
+                    }else if(id === url){
                         $("#linkGroup").css('display','block');
                         $("#fileGroup").css('display','none');
                     }

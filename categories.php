@@ -29,6 +29,17 @@
       <?php
         include 'navigation.php'
       ?>
+      <?php
+        if(isset($_GET['error']) && $_GET['error'] == 1){
+          echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Suppression impossible !</strong> Merci de supprimer la ou les sous-catégories présentent dans cette catégorie.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+        }
+
+      ?>
       <div class="container">
         <h1 class="text-center">Gérer les catégories</h1>
         <center><a href="add_cat.php"><button class="btn btn-success" id="addQuestionButton">Ajouter une catégorie</button></a></center>

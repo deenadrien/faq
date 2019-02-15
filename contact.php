@@ -29,14 +29,15 @@
             include 'navigation.php';
             $test = str_replace('\r\n','<br>',$row['description']);
         ?>
-
         <div class="container">
             <center><img src="img/book.png" id="book"></center>
             <?php echo '<h1>' . $row['prenom'] . ' ' . $row['nom'] . '</h1>'; ?>
             <?php echo '<h4>' . $row['societe'] . '</h4>'; ?>
-
+            <br>
             <?php echo '<center><a href="modify_contact.php?id=' . $row['id'] . '"><button type="button" class="btn btn-info">Modifier la fiche contact</button></a></center>'; ?>
-            <br><br><br>
+            <br>
+            <center><a href="annuaire.php"><button type="button" class="btn btn-warning">Revenir à la liste</button></a></center>
+            <br><br>
             <center>
                 <img src="img/phone.png">
                 <?php echo 'Numéro de téléphone: <br><b>' . $row['num_tel'] . '</b>'; ?>

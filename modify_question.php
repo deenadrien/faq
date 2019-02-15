@@ -18,16 +18,62 @@
           $getQuestion = $pdo -> prepare("SELECT * FROM post WHERE id = :id");
           $getQuestion -> execute(array("id" => $_GET['id']));
 
-          $row = $getQuestion -> fetch(PDO::FETCH_ASSOC)
+          $getAllCategories = $pdo -> prepare("SELECT * FROM category");
+          $getAllCategories -> execute();
+
+          $row = $getQuestion -> fetch(PDO::FETCH_ASSOC);
 
         ?>
     </head>
     <body>
        <div class="container">
             <?php echo '<center><h1>Modifier la question #' . $row['id'] . '</h1></center>'; ?>
-            <form action="#" method="post">
-                
+            <form action="modify_question_process.php" method="post">
+                <?php echo '<input type="hidden" name="id" value="' . $row['id'] . '">'; ?>
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <?php echo '<input type="text" class="form-control" id="title" name="title" value="' . $row['title'] . '">'; ?>
+                </div>
+                <div class="form-group">
+                    <label for="title">Lien</label>
+                    <?php
+                        if(strchr($row['link'],'http')){
+                            echo '<input type="text" class="form-control" id="title" name="link" value="' . $row['link'] . '">';
+                        }else{
+                            echo '<input type="text" class="form-control" id="title" name="link" value="' . $row['link'] . '" readonly>';
+                        }
+                    ?>
+                </div>
+                <div class="form-group">
+                    <label for="categoriesSelect">Catégorie</label>
+                    <select class="form-control" id="categoriesSelect" name="category">
+                        <option>Sélectionner</option>
+                        <?php
+                            while($row = $getAllCategories -> fetch(PDO::FETCH_ASSOC)){
+                                echo '<option value="' . $row['title'] . '">' . $row['title'] . '</option>';
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subCategoriesSelect">Catégorie</label>
+                    <select class="form-control" id="subCategoriesSelect" name="sub_category">
+                        <option>Sélectionner</option>
+                    </select>
+                </div>
+                <center><button type="submit" class="btn btn-warning">Enregistrer la modification</button>&nbsp;&nbsp;<a href="questions.php"><button type="button" class="btn btn-danger">Annuler</button></a></center>
             </form>
        </div>
+       <script src="js/jquery-3.3.1.min.js"></script>
+       <script>
+            $(document).ready(function(){
+                $("#categoriesSelect").change(function(){
+                    id = $(this).val();
+                    $.post("subcat.php",{id:id},function(data){
+                    $("#subCategoriesSelect").html(data);
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

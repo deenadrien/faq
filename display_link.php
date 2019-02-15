@@ -18,6 +18,8 @@
               echo '<img src="img/pdf.png"><a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
             }else if($row['type'] === 'Vidéo'){
               echo '<img src="img/video.png"><a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
+            }else if($row['type'] === 'URL'){
+                echo '<img src="img/www.png"><a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
             }else{
                 echo '<a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
               }

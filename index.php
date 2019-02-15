@@ -24,6 +24,8 @@
     </head>
     <body>
       <div class="container" id="searchBox">
+        <iframe src="https://giphy.com/embed/l0HlRnAWXxn0MhKLK" width="240" height="174" frameBorder="0"></iframe>
+        <h1>Foire aux questions</h1>
         <div class="row">
           <div class="col-sm-6">
               <div class="form-group">
@@ -46,17 +48,7 @@
           </div>
         </div>
         <div id="listOfLinks">
-          <?php
-            while($row = $getAllPosts -> fetch(PDO::FETCH_ASSOC)){
-              if($row['type'] === 'PDF'){
-                echo '<img src="img/pdf.png"><a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
-              }else if($row['type'] === 'Vidéo'){
-                echo '<img src="img/video.png"><a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
-              }else{
-                  echo '<a href="' . $row['link'] . '" target="_blank">' . $row['title'] . '</a><br><br>';
-                }
-            }
-          ?>
+          
         </div>
       </div>
       <script src="js/jquery-3.3.1.min.js"></script>

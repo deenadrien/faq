@@ -39,3 +39,9 @@ h4{
 #book{
     margin-top: 1%;
 }
+
+iframe{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
